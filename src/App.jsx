@@ -1,13 +1,12 @@
 /** @format */
 
-import MySwiper from "./components/MySwiper";
+import MySwiper from "./components/MySwiper/MySwiper";
 
-function App() {
+export default function App() {
   return (
     <>
-      <MySwiper />
+      <MySwiper/>
     </>
   );
 }
 
-export default App;
