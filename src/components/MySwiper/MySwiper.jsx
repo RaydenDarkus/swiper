@@ -11,6 +11,7 @@ import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 export default function MySwiper() {
 
   const [images, setImages] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
 
   // Fetch the NASA API
@@ -31,7 +32,6 @@ export default function MySwiper() {
     fetchImages();
   }, []);
 
-  // Update the screen slide from the url
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -41,23 +41,21 @@ export default function MySwiper() {
         swiperRef.current.swiper.slideTo(sceneNumber - 1);
       }
     };
-
     window.addEventListener('hashchange', handleHashChange);
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
 
-
   // Set the hash to 1 on page load or reload
   window.onload = function() {
     window.location.hash = '#feed=nasa&scene=1';
   };
   
-
   // Update the url on changing slide
   const handleSlideChange = (swiper) => {
-    const index = swiper.activeIndex + 1; // Add 1 since index starts from 0
+    const index = swiper.realIndex + 1; // Add 1 since index starts from 0
+    setActiveIndex(index);
     window.location.hash = `#feed=nasa&scene=${index}`;
   };
 
@@ -66,6 +64,7 @@ export default function MySwiper() {
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
+        rewind = {true}
         centeredSlides={true}
         slidesPerView={"auto"}
         coverflowEffect={{
@@ -86,8 +85,17 @@ export default function MySwiper() {
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img src={image.url} alt={image.title || "Slide Image"} />
-            <p>{image.title}</p>
+            {activeIndex === index + 1 ? ( // Compare activeIndex with current index, if it is true then enable img link otherwise not
+              <a href={image.url} target="_blank" rel="noopener noreferrer">
+                <img src={image.url} alt={image.title || "Slide Image"} />
+                <p>{image.title}</p>
+              </a>
+            ) : (
+              <>
+                <img src={image.url} alt={image.title || "Slide Image"} />
+                <p>{image.title}</p>
+              </>
+            )}
           </SwiperSlide>
         ))}
       </Swiper>

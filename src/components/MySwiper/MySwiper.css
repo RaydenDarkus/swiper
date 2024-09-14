@@ -31,6 +31,19 @@
   margin-top: 60px;
 }
 
+.swiper-slide img:hover {
+  transform: scale(1.01);
+}
+
+.swiper-slide a {
+  text-decoration: none;
+  color: black;
+}
+
+.swiper-slide p:hover {
+  opacity: 0.5;
+}
+
 /* Responsiveness in smaller screens */
 @media screen and (max-width: 1089px) {
   .swiper-slide {
@@ -52,4 +65,3 @@
     height: 240px;
   }
 }
-
