@@ -48,9 +48,10 @@ export default function MySwiper() {
   }, []);
 
   // Set the hash to 1 on page load or reload
-  window.onload = function() {
+  useEffect(() => {
     window.location.hash = '#feed=nasa&scene=1';
-  };
+    setActiveIndex(1);  // Set activeIndex to 1 on initial load or reload
+  }, []);
   
   // Update the url on changing slide
   const handleSlideChange = (swiper) => {
@@ -58,6 +59,16 @@ export default function MySwiper() {
     setActiveIndex(index);
     window.location.hash = `#feed=nasa&scene=${index}`;
   };
+
+  // For videos this will be the configuration as grabbing is not allowed for it
+  document.querySelectorAll('.swiper-slide iframe').forEach(iframe => {
+    iframe.addEventListener('mouseenter', () => {
+      iframe.style.pointerEvents = 'auto';  // Allow iframe interaction
+    });
+    iframe.addEventListener('mouseleave', () => {
+      iframe.style.pointerEvents = 'none';  // Disable iframe interaction for Swiper dragging
+    });
+  });
 
   return (
     <div>
@@ -87,12 +98,20 @@ export default function MySwiper() {
           <SwiperSlide key={index}>
             {activeIndex === index + 1 ? ( // Compare activeIndex with current index, if it is true then enable img link otherwise not
               <a href={image.url} target="_blank" rel="noopener noreferrer">
-                <img src={image.url} alt={image.title || "Slide Image"} />
+                {image.media_type === 'video' ? (
+                  <iframe src={image.url} title={image.title} allowFullScreen />
+                ) : (
+                  <img src={image.url} alt={image.title || "Slide Image"} />
+                )}
                 <p>{image.title}</p>
               </a>
             ) : (
               <>
-                <img src={image.url} alt={image.title || "Slide Image"} />
+                {image.media_type === 'video' ? (
+                  <iframe src={image.url} title={image.title} allowFullScreen />
+                ) : (
+                  <img src={image.url} alt={image.title || "Slide Image"} />
+                )}
                 <p>{image.title}</p>
               </>
             )}

@@ -13,7 +13,7 @@
   height: 320px;
 }
 
-.swiper-slide img {
+.swiper-slide img, .swiper-slide iframe {
   margin-top: 10px;
   display: block;
   width: 100%;
@@ -31,8 +31,12 @@
   margin-top: 60px;
 }
 
-.swiper-slide img:hover {
+.swiper-slide img:hover, .swiper-slide iframe:hover {
   transform: scale(1.01);
+}
+
+.swiper-slide iframe {
+  pointer-events: none; /* Disable pointer events by default */
 }
 
 .swiper-slide a {
