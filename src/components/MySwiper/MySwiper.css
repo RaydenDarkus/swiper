@@ -13,7 +13,7 @@
   height: 320px;
 }
 
-.swiper-slide img {
+.swiper-slide img, .swiper-slide iframe {
   margin-top: 10px;
   display: block;
   width: 100%;
@@ -29,6 +29,23 @@
 .swiper-pagination {
   position: relative;
   margin-top: 60px;
+}
+
+.swiper-slide img:hover, .swiper-slide iframe:hover {
+  transform: scale(1.01);
+}
+
+.swiper-slide iframe {
+  pointer-events: none; /* Disable pointer events by default */
+}
+
+.swiper-slide a {
+  text-decoration: none;
+  color: black;
+}
+
+.swiper-slide p:hover {
+  opacity: 0.5;
 }
 
 /* Responsiveness in smaller screens */
@@ -52,4 +69,3 @@
     height: 240px;
   }
 }
-
