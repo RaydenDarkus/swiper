@@ -33,16 +33,17 @@ export default function MySwiper() {
       const feed = hashParams.get('feed');
       const scene = parseInt(hashParams.get('scene'), 10);
 
-      if (!feed || isNaN(scene) || scene < 1 || scene > 5) {
+      if (scene!==1 || !feed || isNaN(scene) || scene < 1 || scene > 5) {
         window.history.replaceState(null, null, '#feed=nasa&scene=1');
-        setActiveIndex(1);
+        // setActiveIndex(1);
       } else {
-        setActiveIndex(scene);
+        if(scene!==1)
+          window.reload();
       }
     };
 
     initializeHash();
-    
+
     const fetchImages = async () => {
       try {
         const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=5');
@@ -65,10 +66,8 @@ export default function MySwiper() {
       const hash = window.location.hash;
       const match = hash.match(/#feed=nasa&scene=(\d+)/);
       const sceneNumber = parseInt(match[1], 10);
-      if (match && swiperRef.current && sceneNumber > 0 && sceneNumber < 6) 
+      if (match && swiperRef.current) 
         swiperRef.current.swiper.slideToLoop(sceneNumber - 1); // If hash is 1-5 and it changes
-      else 
-        swiperRef.current.swiper.slideToLoop(0); // If hash number is 0 and greater than 5
     }
     window.addEventListener('hashchange', handleHashChange);
     return () => {
