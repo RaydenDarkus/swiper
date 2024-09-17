@@ -15,14 +15,21 @@ export default function MySwiper() {
 
   // Set the hash to 1 on page load or reload
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.hash.substring(1));
-    const feed = urlParams.get('feed');
-    const scene = parseInt(urlParams.get('scene'), 10);
-  
-    if (!feed || isNaN(scene)) {
+    if (!window.location.hash) {
       window.history.replaceState(null, null, '#feed=nasa&scene=1');
+    } else {
+      const urlParams = new URLSearchParams(window.location.hash.substring(1));
+      const feed = urlParams.get('feed');
+      const scene = parseInt(urlParams.get('scene'), 10);
+
+      console.log("Feed:", feed, "Scene:", scene); // Check these values
+  
+      if (!feed || isNaN(scene)) {
+        window.history.replaceState(null, null, '#feed=nasa&scene=1');
+      }
     }
   }, []);
+  
   
 
   // Fetch the NASA API
