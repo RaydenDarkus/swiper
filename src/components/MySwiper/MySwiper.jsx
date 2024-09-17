@@ -17,6 +17,7 @@ export default function MySwiper() {
     const hashParams = new URLSearchParams(window.location.hash.substring(1));
     const feed = hashParams.get('feed');
     const scene = hashParams.get('scene');
+    window.location.hash = '#feed=nasa&scene=1';
   
     // Only reload if there's no valid hash or the hash is invalid (e.g., NaN)
     if (!feed || isNaN(parseInt(scene, 10))) {
