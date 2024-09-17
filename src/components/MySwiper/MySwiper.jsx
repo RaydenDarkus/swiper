@@ -13,11 +13,22 @@ export default function MySwiper() {
   const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef(null);
 
+  window.onload = function() {
+    // Check if the URL doesn't already have the desired hash or if it's set to NaN
+    if (!window.location.hash || window.location.hash === '#feed=nasa&scene=NaN') {
+      // Set the hash to the desired value
+      window.location.hash = '#feed=nasa&scene=1';
+      // Reload the page after setting the hash
+      window.location.reload();
+    }
+  };  
+
   // Set the hash to 1 on page load or reload
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.hash.substring(1));
     const feed = urlParams.get('feed');
     let scene = parseInt(urlParams.get('scene'), 10);
+    console.log(scene);
     if (!feed || isNaN(scene)) {
       scene = 1; // Default to scene 1 if NaN or invalid
       window.history.replaceState(null, null, '#feed=nasa&scene=1');
