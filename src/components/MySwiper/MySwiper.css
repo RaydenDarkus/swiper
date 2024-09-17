@@ -30,7 +30,7 @@
   margin-top: 60px;
 }
 
-.swiper-slide img:hover, .swiper-slide iframe:hover {
+.swiper-slide:hover {
   transform: scale(1.01);
 }
 
