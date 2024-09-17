@@ -15,28 +15,17 @@ export default function MySwiper() {
 
   // Set the hash to 1 on page load or reload
   useEffect(() => {
-    if (!window.location.hash) {
+    if (!window.location.hash || window.location.hash === '#feed=nasa&scene=NaN') {
       window.history.replaceState(null, null, '#feed=nasa&scene=1');
-    } else {
-      const urlParams = new URLSearchParams(window.location.hash.substring(1));
-      const feed = urlParams.get('feed');
-      const scene = parseInt(urlParams.get('scene'), 10);
-
-      console.log("Feed:", feed, "Scene:", scene); // Check these values
-  
-      if (!feed || isNaN(scene)) {
-        window.history.replaceState(null, null, '#feed=nasa&scene=1');
-      }
+      setActiveIndex(1);
     }
   }, []);
-  
-  
 
   // Fetch the NASA API
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=5');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=5');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -95,7 +84,6 @@ export default function MySwiper() {
       <Swiper
         grabCursor={true}
         loop={true}
-        initialSlide={0}
         centeredSlides={true}
         slidesPerView={2}
         autoplay={{
