@@ -6,19 +6,24 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./MySwiper.css";
-import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 export default function MySwiper() {
-
   const [images, setImages] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef(null);
+
+  // Set the hash to 1 on page load or reload
+  useEffect(() => {
+    if (!window.location.hash || window.location.hash === '#feed=nasa&scene=NaN')
+      window.history.replaceState(null, null, '#feed=nasa&scene=1');
+  }, []);
 
   // Fetch the NASA API
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=5');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=5');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -32,60 +37,67 @@ export default function MySwiper() {
     fetchImages();
   }, []);
 
+  // Change the slide from the url
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
       const match = hash.match(/#feed=nasa&scene=(\d+)/);
-      if (match && swiperRef.current) {
-        const sceneNumber = parseInt(match[1], 10);
-        swiperRef.current.swiper.slideTo(sceneNumber - 1);
-      }
-    };
+      const sceneNumber = parseInt(match[1], 10);
+      if (match && swiperRef.current && sceneNumber > 0 && sceneNumber < 6) 
+        swiperRef.current.swiper.slideToLoop(sceneNumber - 1); // If hash is 1-5 and it changes
+      else 
+        swiperRef.current.swiper.slideToLoop(0); // If hash number is 0 and greater than 5
+    }
     window.addEventListener('hashchange', handleHashChange);
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, []);
-
-  // Set the hash to 1 on page load or reload
-  useEffect(() => {
-    window.location.hash = '#feed=nasa&scene=1';
-    setActiveIndex(1);  // Set activeIndex to 1 on initial load or reload
+    }
   }, []);
   
   // Update the url on changing slide
   const handleSlideChange = (swiper) => {
     const index = swiper.realIndex + 1; // Add 1 since index starts from 0
     setActiveIndex(index);
-    window.location.hash = `#feed=nasa&scene=${index}`;
+    window.history.replaceState(null, null, `#feed=nasa&scene=${index}`);
   };
 
   // For videos this will be the configuration as grabbing is not allowed for it
-  document.querySelectorAll('.swiper-slide iframe').forEach(iframe => {
-    iframe.addEventListener('mouseenter', () => {
-      iframe.style.pointerEvents = 'auto';  // Allow iframe interaction
-    });
-    iframe.addEventListener('mouseleave', () => {
-      iframe.style.pointerEvents = 'none';  // Disable iframe interaction for Swiper dragging
-    });
-  });
+  useEffect(() => {
+    const handleIframeInteraction = () => {
+      document.querySelectorAll('.swiper-slide iframe').forEach(iframe => {
+        iframe.addEventListener('mouseenter', () => {
+          iframe.style.pointerEvents = 'auto';
+        });
+        iframe.addEventListener('mouseleave', () => {
+          iframe.style.pointerEvents = 'none';
+        });
+      });
+    };
+
+    handleIframeInteraction();
+  }, [images]);
 
   return (
     <div>
       <Swiper
-        effect={"coverflow"}
         grabCursor={true}
-        rewind = {true}
+        loop={true}
+        initialSlide={0}
         centeredSlides={true}
-        slidesPerView={"auto"}
-        coverflowEffect={{
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
+        slidesPerView={2}
+        autoplay={{
+          delay: 10000,
+          disableOnInteraction: false,
         }}
-        modules={[EffectCoverflow, Navigation, Pagination]}
-        spaceBetween={30}
+        breakpoints={{
+          600: {
+            slidesPerView: 2,
+          },
+          0: {
+            slidesPerView: 1,
+          },
+        }}
+        modules={[Autoplay, Navigation, Pagination]}
         navigation={true}
         pagination={{
           clickable: true,
