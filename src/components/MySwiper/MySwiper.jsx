@@ -18,17 +18,18 @@ export default function MySwiper() {
     const feed = hashParams.get('feed');
     const scene = hashParams.get('scene');
     window.location.hash = '#feed=nasa&scene=1';
+    setActiveIndex(1);
   
     // Only reload if there's no valid hash or the hash is invalid (e.g., NaN)
-    if (!feed || isNaN(parseInt(scene, 10))) {
-      // Set the hash to the desired value
-      window.location.hash = '#feed=nasa&scene=1';
+    // if (!feed || isNaN(parseInt(scene, 10))) {
+    //   // Set the hash to the desired value
+    //   window.location.hash = '#feed=nasa&scene=1';
   
-      // Reload the page only if the hash was invalid before
-      if (scene !== '1') {
-        window.location.reload();
-      }
-    }
+    //   // Reload the page only if the hash was invalid before
+    //   if (scene !== '1') {
+    //     window.location.reload();
+    //   }
+    // }
   };
   
 
