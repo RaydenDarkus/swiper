@@ -13,26 +13,6 @@ export default function MySwiper() {
   const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef(null);
 
-  window.onload = function () {
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const feed = hashParams.get('feed');
-    const scene = hashParams.get('scene');
-    window.location.hash = '#feed=nasa&scene=1';
-    setActiveIndex(1);
-  
-    // Only reload if there's no valid hash or the hash is invalid (e.g., NaN)
-    // if (!feed || isNaN(parseInt(scene, 10))) {
-    //   // Set the hash to the desired value
-    //   window.location.hash = '#feed=nasa&scene=1';
-  
-    //   // Reload the page only if the hash was invalid before
-    //   if (scene !== '1') {
-    //     window.location.reload();
-    //   }
-    // }
-  };
-  
-
   // // Set the hash to 1 on page load or reload
   // useEffect(() => {
   //   const urlParams = new URLSearchParams(window.location.hash.substring(1));
@@ -48,6 +28,21 @@ export default function MySwiper() {
 
   // Fetch the NASA API
   useEffect(() => {
+    const initializeHash = () => {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const feed = hashParams.get('feed');
+      const scene = parseInt(hashParams.get('scene'), 10);
+
+      if (!feed || isNaN(scene) || scene < 1 || scene > 5) {
+        window.history.replaceState(null, null, '#feed=nasa&scene=1');
+        setActiveIndex(1);
+      } else {
+        setActiveIndex(scene);
+      }
+    };
+
+    initializeHash();
+    
     const fetchImages = async () => {
       try {
         const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=5');
