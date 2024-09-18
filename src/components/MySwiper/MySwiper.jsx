@@ -15,7 +15,6 @@ export default function MySwiper() {
 
   useEffect(() => {
     const initializeHash = () => {
-      console.log("Initializing hash...");
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const feed = hashParams.get('feed');
       const scene = parseInt(hashParams.get('scene'), 10);
@@ -68,6 +67,8 @@ export default function MySwiper() {
     const index = swiper.realIndex + 1;
     setActiveIndex(index);
     window.history.replaceState(null, null, `#feed=nasa&scene=${index}`);
+  // Send message to parent window with activeIndex
+    window.parent.postMessage({ activeIndex: index, source: 'swiper' }, '*');
   };
 
   useEffect(() => {
