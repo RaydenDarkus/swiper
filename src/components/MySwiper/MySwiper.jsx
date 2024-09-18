@@ -12,22 +12,31 @@ export default function MySwiper() {
   const [images, setImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef(null);
+  const initializedRef = useRef(false);
 
   useEffect(() => {
     const initializeHash = () => {
+      console.log("Initializing hash...");
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const feed = hashParams.get('feed');
       const scene = parseInt(hashParams.get('scene'), 10);
 
+      console.log(`Initial hash params - feed: ${feed}, scene: ${scene}`);
+
       if (!feed || isNaN(scene) || scene < 1 || scene > 5) {
+        console.log("Invalid hash params, setting default...");
         window.history.replaceState(null, null, '#feed=nasa&scene=1');
         setActiveIndex(1);
       } else {
+        console.log(`Setting activeIndex to ${scene}`);
         setActiveIndex(scene);
       }
     };
 
-    initializeHash();
+    if (!initializedRef.current) {
+      initializeHash();
+      initializedRef.current = true;
+    }
 
     const fetchImages = async () => {
       try {
@@ -47,12 +56,17 @@ export default function MySwiper() {
 
   useEffect(() => {
     const handleHashChange = () => {
+      console.log("Hash changed...");
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const scene = parseInt(hashParams.get('scene'), 10);
-      if (!isNaN(scene) && scene > 0 && scene < 6 && swiperRef.current) 
+      console.log(`New scene from hash: ${scene}`);
+      if (!isNaN(scene) && scene > 0 && scene < 6 && swiperRef.current) {
+        console.log(`Sliding to index: ${scene - 1}`);
         swiperRef.current.swiper.slideToLoop(scene - 1);
-      else 
+      } else {
+        console.log("Invalid scene, sliding to index 0");
         swiperRef.current.swiper.slideToLoop(0);
+      }
     };
 
     window.addEventListener('hashchange', handleHashChange);
@@ -63,9 +77,14 @@ export default function MySwiper() {
 
   const handleSlideChange = (swiper) => {
     const index = swiper.realIndex + 1;
+    console.log(`Slide changed. New index: ${index}`);
     setActiveIndex(index);
     window.history.replaceState(null, null, `#feed=nasa&scene=${index}`);
   };
+
+  useEffect(() => {
+    console.log(`activeIndex updated: ${activeIndex}`);
+  }, [activeIndex]);
 
   useEffect(() => {
     const handleIframeInteraction = () => {
