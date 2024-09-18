@@ -13,32 +13,17 @@ export default function MySwiper() {
   const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef(null);
 
-  // // Set the hash to 1 on page load or reload
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(window.location.hash.substring(1));
-  //   const feed = urlParams.get('feed');
-  //   let scene = parseInt(urlParams.get('scene'), 10);
-  //   console.log(scene);
-  //   if (!feed || isNaN(scene)) {
-  //     scene = 1; // Default to scene 1 if NaN or invalid
-  //     window.history.replaceState(null, null, '#feed=nasa&scene=1');
-  //   }
-  //   setActiveIndex(scene);
-  // }, []);
-
-  // Fetch the NASA API
   useEffect(() => {
     const initializeHash = () => {
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const feed = hashParams.get('feed');
       const scene = parseInt(hashParams.get('scene'), 10);
 
-      if (scene!==1 || !feed || isNaN(scene) || scene < 1 || scene > 5) {
+      if (!feed || isNaN(scene) || scene < 1 || scene > 5) {
         window.history.replaceState(null, null, '#feed=nasa&scene=1');
-        // setActiveIndex(1);
+        setActiveIndex(1);
       } else {
-        if(scene!==1)
-          window.reload();
+        setActiveIndex(scene);
       }
     };
 
@@ -60,29 +45,28 @@ export default function MySwiper() {
     fetchImages();
   }, []);
 
-  // Change the slide from the url
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash;
-      const match = hash.match(/#feed=nasa&scene=(\d+)/);
-      const sceneNumber = parseInt(match[1], 10);
-      if (match && swiperRef.current) 
-        swiperRef.current.swiper.slideToLoop(sceneNumber - 1); // If hash is 1-5 and it changes
-    }
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const scene = parseInt(hashParams.get('scene'), 10);
+      if (!isNaN(scene) && scene > 0 && scene < 6 && swiperRef.current) 
+        swiperRef.current.swiper.slideToLoop(scene - 1);
+      else 
+        swiperRef.current.swiper.slideToLoop(0);
+    };
+
     window.addEventListener('hashchange', handleHashChange);
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
-    }
+    };
   }, []);
-  
-  // Update the url on changing slide
+
   const handleSlideChange = (swiper) => {
-    const index = swiper.realIndex + 1; // Add 1 since index starts from 0
+    const index = swiper.realIndex + 1;
     setActiveIndex(index);
     window.history.replaceState(null, null, `#feed=nasa&scene=${index}`);
   };
 
-  // For videos this will be the configuration as grabbing is not allowed for it
   useEffect(() => {
     const handleIframeInteraction = () => {
       document.querySelectorAll('.swiper-slide iframe').forEach(iframe => {
@@ -125,10 +109,11 @@ export default function MySwiper() {
         onSlideChange={handleSlideChange}
         className='mySwiper'
         ref={swiperRef}
+        initialSlide={activeIndex - 1}
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            {activeIndex === index + 1 ? ( // Compare activeIndex with current index, if it is true then enable img link otherwise not
+            {activeIndex === index + 1 ? (
               <a href={image.url} target="_blank" rel="noopener noreferrer">
                 {image.media_type === 'video' ? (
                   <iframe src={image.url} title={image.title} allowFullScreen />
