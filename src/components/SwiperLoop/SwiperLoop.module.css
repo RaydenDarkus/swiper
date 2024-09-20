@@ -1,0 +1,88 @@
+/** @format */
+
+.swiperLoop {
+  position: relative;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px; 
+  height: 200px;
+}
+
+.swiperSlide {
+  background-position: center;
+  background-size: cover;
+  height: 120px;
+}
+
+.swiperSlide img, .swiperSlide iframe {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover; */
+  /* object-fit: contain; */
+}
+
+.swiperSlide p {
+  text-align: center;
+  margin-top: 10px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.swiperSlide:hover {
+  transform: scale(1.01);
+}
+
+.swiperSlide iframe {
+  pointer-events: none; /* Disable pointer events by default */
+}
+
+.swiperSlide a {
+  text-decoration: none;
+  color: black;
+}
+
+.swiperSlide p:hover {
+  opacity: 0.5;
+}
+
+/* Custom Styles */
+.swiperLoop :global(.swiper-pagination) {
+  position: absolute;
+  top: 230px; /* Adjust this value to position the pagination */
+  left: 0;
+  right: 0;
+}
+
+.swiperLoop :global(.swiper-button-next), .swiperLoop :global(.swiper-button-prev) {
+  color: white; 
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 2rem;
+  height: 2rem;
+  bottom: 300px;
+  top: calc(52% - 1rem); /* Center vertically */
+  transform: translateY(-50%);
+}
+
+.swiperLoop :global(.swiper-button-next::after), .swiperLoop :global(.swiper-button-prev::after) {
+  font-size: 15px;
+}
+
+/* Responsiveness in smaller screens */
+/* @media screen and (max-width: 1089px) {
+  .swiperSlide {
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .swiperSlide {
+    height: 320px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .swiperSlide {
+    height: 300px;
+  }
+} */
