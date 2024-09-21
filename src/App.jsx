@@ -6,10 +6,10 @@ import SwiperLoop from './components/SwiperLoop/SwiperLoop';
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/swiper">
       <Routes>
-        <Route path="/swiper" element={<MySwiper/>}/>
-        <Route path="/swiper/loop" element={<SwiperLoop/>}/>
+        <Route path="/" element={<MySwiper/>}/>
+        <Route path="/loop" element={<SwiperLoop/>}/>
       </Routes>
     </Router>
   );

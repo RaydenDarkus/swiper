@@ -20,20 +20,20 @@ export default function MySwiper() {
       const scene = parseInt(hashParams.get('scene'), 10);
 
       console.log(`Initial hash params - feed: ${feed}, scene: ${scene}`);
-
-      if (!feed || isNaN(scene) || scene < 1 || scene > 5) {
-        window.history.replaceState(null, null, '#feed=nasa&scene=1');
-      } else {
-        console.log(`Setting activeIndex to ${scene}`);
-        window.history.replaceState(null, null, '#feed=nasa&scene=1');
-      }
+      window.history.replaceState(null, null, '#feed=nasa&scene=1');
+      // if (!feed || isNaN(scene) || scene < 1 || scene > 11) {
+      //   window.history.replaceState(null, null, '#feed=nasa&scene=1');
+      // } else {
+      //   console.log(`Setting activeIndex to ${scene}`);
+      //   window.history.replaceState(null, null, '#feed=nasa&scene=1');
+      // }
     };
     
     initializeHash();
 
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=11');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=11');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -51,7 +51,7 @@ export default function MySwiper() {
     const handleHashChange = () => {
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const scene = parseInt(hashParams.get('scene'), 10);
-      if (!isNaN(scene) && scene > 0 && scene < 6 && swiperRef.current) {
+      if (!isNaN(scene) && scene > 0 && scene < 12 && swiperRef.current) {
         swiperRef.current.swiper.slideToLoop(scene - 1);
       } else {
         swiperRef.current.swiper.slideToLoop(0);
@@ -124,7 +124,6 @@ export default function MySwiper() {
       >
         {images.map((image, index) => (
           <SwiperSlide key={index} className={styles.swiperSlide}>
-            {activeIndex === index + 1 ? (
               <a href={image.url} target="_blank" rel="noopener noreferrer">
                 {image.media_type === 'video' ? (
                   <iframe src={image.url} title={image.title} allowFullScreen />
@@ -133,16 +132,6 @@ export default function MySwiper() {
                 )}
                 <p>{image.title}</p>
               </a>
-            ) : (
-              <>
-                {image.media_type === 'video' ? (
-                  <iframe src={image.url} title={image.title} allowFullScreen />
-                ) : (
-                  <img src={image.url} alt={image.title || "Slide Image"} />
-                )}
-                <p>{image.title}</p>
-              </>
-            )}
           </SwiperSlide>
         ))}
       </Swiper>

@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Model Earth - Swiper</title>
+    <script type="text/javascript">
+      (function(l) {
+        if (l.pathname.split('/').length > 2) {
+          var rootPath = '/' + l.pathname.split('/')[1];
+          if (l.search[1] === '/') {
+            var decoded = l.search.slice(1).split('&').map(function(s) { 
+              return s.replace(/~and~/g, '&')
+            }).join('?');
+            window.history.replaceState(null, null,
+              rootPath + l.pathname.slice(rootPath.length) + decoded + l.hash
+            );
+          }
+        }
+      }(window.location))
+    </script>
   </head>
   <body>
     <div id="root"></div>
