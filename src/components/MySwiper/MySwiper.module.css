@@ -9,9 +9,8 @@
 .swiperSlide {
   background-position: center;
   background-size: cover;
-  width: 400px;
-  height: 400px;
-  /* margin-right: 400px; */
+  width: 320px;
+  height: 320px;
 }
 
 .swiperSlide img, .swiperSlide iframe {
