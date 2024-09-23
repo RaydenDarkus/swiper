@@ -32,7 +32,7 @@ export default function MySwiper() {
       // }
     };
     
-    initializeHash();
+    initializeHash(); //Initialize the url
 
     const fetchImages = async () => {
       try {
@@ -50,6 +50,7 @@ export default function MySwiper() {
     fetchImages();
   }, []);
 
+  // Update the slide from the url. Now you can change the scene in the url and it will go to that slide.
   useEffect(() => {
     const handleHashChange = () => {
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
@@ -79,6 +80,7 @@ export default function MySwiper() {
     window.history.replaceState(null, null, `#feed=nasa&scene=${index}`);
   };
 
+  // Notes down the index of the slider
   useEffect(() => {
     console.log(`activeIndex updated: ${activeIndex}`);
   }, [activeIndex]);
@@ -122,7 +124,7 @@ export default function MySwiper() {
         }}
         onSlideChange={handleSlideChange}
         className={styles.mySwiper}
-        initialSlide={0}
+        initialSlide={0} //Set initialSlide = {2} if you want to show swiper in the middle slide by default
         slidesPerGroup={1}
         ref={swiperRef}
       >
