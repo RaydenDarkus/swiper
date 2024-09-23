@@ -36,7 +36,7 @@ export default function MySwiper() {
 
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=5');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=5');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -100,7 +100,7 @@ export default function MySwiper() {
   }, [images]);
 
   return (
-    <div>
+    <div className="styles.swiperContainer">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -108,10 +108,11 @@ export default function MySwiper() {
         centeredSlides={true}
         slidesPerView={"auto"}
         coverflowEffect={{
+          rotate: 40,
           stretch: 0,
           depth: 100,
           modifier: 1,
-          slideShadows: true,
+          slideShadows: false,
         }}
         modules={[EffectCoverflow, Navigation, Pagination]}
         spaceBetween={50}
@@ -122,6 +123,7 @@ export default function MySwiper() {
         onSlideChange={handleSlideChange}
         className={styles.mySwiper}
         initialSlide={0}
+        slidesPerGroup={1}
         ref={swiperRef}
       >
         {images.map((image, index) => (

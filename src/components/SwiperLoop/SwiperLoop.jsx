@@ -33,7 +33,7 @@ export default function MySwiper() {
 
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=11');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=11');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -98,6 +98,7 @@ export default function MySwiper() {
         initialSlide = {0}
         centeredSlides={true}
         slidesPerView={6}
+        slidesPerGroup={1}
         autoplay={{
           delay: 10000,
           disableOnInteraction: false,
@@ -106,8 +107,11 @@ export default function MySwiper() {
           1024: {
             slidesPerView: 6,
           },
-          500: {
+          600: {
             slidesPerView: 4,
+          },
+          480: {
+            slidesPerView: 3,
           },
           320: {
             slidesPerView: 2,
