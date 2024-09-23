@@ -31,7 +31,7 @@ To run only swiper in it's own port:
 ## Display Options
 
 In the original layout the coverflow effect ensures that the active slide is always centered and is at center on default.
-If you want to change it, view the comments on src/MySwiper/MySwiper.jsx so that we can make the swiper is on middle slide on loading.
+If you want to change it, view the comments on src/MySwiper/MySwiper.jsx so that we can make the swiper on middle slide when loading.
 
 View the live website at [model.earth/swiper](https://model.earth/swiper/) and the looped filmstrip at [model.earth/swiper/loop](https://model.earth/swiper/loop). View the widget at [model.earth/home](https://model.earth/home/).
 
