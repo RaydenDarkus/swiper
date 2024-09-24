@@ -11,6 +11,7 @@ export default defineConfig({
         main: './index.html',
         loop: './loop.html',
       }
-    }
+    }, 
+    outDir: 'docs', // Set the output directory to docs
   }
 })
