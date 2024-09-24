@@ -2,7 +2,7 @@
 
 ## Localsite for Model.earth Dev
 
-View slider at [localhost:8887/swiper/dist/](http://localhost:8887/swiper/dist/) after [starting your localsite](https://model.earth/localsite/start/steps/).
+View slider at [localhost:8887/swiper/dist/](http://localhost:8887/swiper/dist/) and slider loop at [localhost:8887/swiper/dist/](http://localhost:8887/swiper/dist/loop.html)after [starting your localsite](https://model.earth/localsite/start/steps/).
 
 If you want to host it locally, make a webroot folder that contains the localsite and home repo.
 
