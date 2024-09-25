@@ -24,7 +24,7 @@ export default function MySwiper() {
       console.log(`Initial hash params - feed: ${feed}, scene: ${scene}`);
       window.history.replaceState(null, null, '#feed=nasa&scene=1');
       setActiveIndex(1);
-      // if (!feed || isNaN(scene) || scene < 1 || scene > 5) {
+      // if (!feed || isNaN(scene) || scene < 1 || scene > 9) {
       //   window.history.replaceState(null, null, '#feed=nasa&scene=1');
       // } else {
       //   console.log(`Setting activeIndex to ${scene}`);
@@ -36,7 +36,7 @@ export default function MySwiper() {
 
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=5');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=9');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -55,10 +55,10 @@ export default function MySwiper() {
     const handleHashChange = () => {
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const scene = parseInt(hashParams.get('scene'), 10);
-      if (!isNaN(scene) && scene > 0 && scene < 6 && swiperRef.current) {
-        swiperRef.current.swiper.slideTo(scene - 1);
+      if (!isNaN(scene) && scene > 0 && scene < 10 && swiperRef.current) {
+        swiperRef.current.swiper.slideToLoop(scene - 1);
       } else {
-        swiperRef.current.swiper.slideTo(0);
+        swiperRef.current.swiper.slideToLoop(0);
       }
     };
     window.addEventListener('hashchange', handleHashChange);
@@ -106,7 +106,7 @@ export default function MySwiper() {
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
-        rewind = {true}
+        loop = {images.length > 3}
         centeredSlides={true}
         slidesPerView={"auto"}
         coverflowEffect={{
@@ -124,7 +124,7 @@ export default function MySwiper() {
         }}
         onSlideChange={handleSlideChange}
         className={styles.mySwiper}
-        initialSlide={0} //Set initialSlide = {2} if you want to show swiper in the middle slide by default
+        // initialSlide={0} //Set initialSlide = {5} if you want to show swiper in the middle slide by default
         slidesPerGroup={1}
         ref={swiperRef}
       >

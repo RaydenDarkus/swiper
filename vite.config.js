@@ -14,7 +14,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: './swiper.html',
+        swiper: './swiper.html',
         loop: './loop.html',
       },
       output: {
