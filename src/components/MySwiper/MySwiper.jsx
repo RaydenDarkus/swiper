@@ -13,6 +13,23 @@ export default function MySwiper() {
   const [images, setImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      // Check if the parent document has a 'dark' class on the body
+      setIsDarkMode(window.parent.document.body.classList.contains('dark'));
+    };
+    // Initial check
+    checkDarkMode();
+    // Set up a MutationObserver to watch for changes in the parent document's body class
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(window.parent.document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   // Fetch the NASA API
   useEffect(() => {
@@ -102,7 +119,7 @@ export default function MySwiper() {
   }, [images]);
 
   return (
-    <div className="styles.swiperContainer">
+    <div className={`${styles.swiperContainer} ${isDarkMode ? styles.dark : ''}`}>
       <Swiper
         effect={"coverflow"}
         grabCursor={true}

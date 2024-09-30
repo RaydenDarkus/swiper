@@ -1,8 +1,7 @@
 /** @format */
 .swiperContainer {
   width: 100%;
-  padding: 50px 0;
-  overflow: hidden;
+  height: 100%;
 }
 
 .mySwiper {
@@ -11,11 +10,15 @@
   padding-bottom: 50px;
 }
 
+.dark .mySwiper {
+  background-color: #444;
+}
+
 .swiperSlide {
   background-position: center;
   background-size: cover;
-  width: 320px;
-  height: 320px;
+  width: 300px;
+  height: 300px;
   transition: transform 0.3s ease;
 }
 
@@ -30,6 +33,7 @@
   text-align: center;
   margin-top: 10px;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: black;
 }
 
 .mySwiper :global(.swiper-pagination) {
@@ -47,18 +51,48 @@
 
 .swiperSlide a {
   text-decoration: none;
-  color: black;
 }
 
-.swiper-slide p:hover {
+.swiperSlide p:hover {
   opacity: 0.5;
+}
+
+.dark .swiperSlide p {
+  color: white;
+}
+
+.mySwiper :global(.swiper-button-next), .mySwiper :global(.swiper-button-prev) {
+  color: black;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
+  width: 3rem;
+  height: 3rem;
+  bottom: 300px;
+  top: calc(52% - 1rem); /* Center vertically */
+  transform: translateY(-50%);
+}
+
+.mySwiper :global(.swiper-button-next::after), .mySwiper :global(.swiper-button-prev::after) {
+  font-size: 25px;
+}
+
+.dark .mySwiper :global(.swiper-button-next), .dark .mySwiper :global(.swiper-button-prev) {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid white;
 }
 
 /* Responsiveness in smaller screens */
 @media screen and (max-width: 1089px) {
   .swiperSlide {
-    width: 300px;
-    height: 300px;
+    width: 290px;
+    height: 290px;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .mySwiper :global(.swiper-button-next), .mySwiper :global(.swiper-button-prev) {
+    display: none;
   }
 }
 
