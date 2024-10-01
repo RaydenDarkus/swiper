@@ -3,14 +3,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styles from "./MySwiper.module.css";
-import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { handleIframeInteraction } from "../../utils/utils";
 
-export default function MySwiper({ images }) {
+export default function MiniSwiper({images}) {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
@@ -63,7 +62,7 @@ export default function MySwiper({ images }) {
       window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
-  
+
   // Update the url on changing slide
   const handleSlideChange = (swiper) => {
     const index = swiper.realIndex + 1; // Add 1 since index starts from 0
@@ -84,20 +83,13 @@ export default function MySwiper({ images }) {
   return (
     <div className={`${styles.swiperContainer} ${isDarkMode ? styles.dark : ''}`}>
       <Swiper
-        effect={"coverflow"}
+        effect={"slide"}
         grabCursor={true}
         loop = {images.length > 3}
         centeredSlides={true}
         slidesPerView={"auto"}
-        coverflowEffect={{
-          rotate: 40,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: false,
-        }}
-        modules={[EffectCoverflow, Navigation, Pagination]}
-        spaceBetween={50}
+        modules={[ Navigation, Pagination ]}
+        spaceBetween={0}
         navigation={true}
         pagination={{
           clickable: true,
