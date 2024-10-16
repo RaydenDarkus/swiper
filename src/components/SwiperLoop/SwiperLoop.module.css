@@ -68,7 +68,7 @@
 
 .swiperLoop :global(.swiper-button-next), .swiperLoop :global(.swiper-button-prev) {
   position: absolute;
-  color: white; 
+  color: black; 
   background-color: #ffffff50;
   width: 2rem;
   height: 2rem;
@@ -77,7 +77,7 @@
   z-index: 10; /* Ensure buttons stay above the slides */
 }
 
-.swiperLoop :global(.swiper-button-next:hover), .mySwiper :global(.swiper-button-prev:hover) {
+.swiperLoop :global(.swiper-button-next:hover), .swiperLoop :global(.swiper-button-prev:hover) {
   background-color: #ffffff80;
 }
 
