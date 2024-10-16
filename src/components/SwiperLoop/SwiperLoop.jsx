@@ -45,7 +45,7 @@ export default function SwiperLoop() {
     // api_key = 7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64
     const fetchImages = async () => {
       try {
-        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=7BdaDaLN7EHQyb8Db3NDkE1dPSniiIG2oE0wvt64&hd=True&count=11');
+        const response = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=True&count=11');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
