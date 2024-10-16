@@ -8,6 +8,10 @@
   height: 200px;
 }
 
+.dark .swiperLoop {
+  background-color: #444;
+}
+
 .swiperSlide {
   background-position: center;
   background-size: cover;
@@ -65,7 +69,7 @@
 .swiperLoop :global(.swiper-button-next), .swiperLoop :global(.swiper-button-prev) {
   position: absolute;
   color: white; 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #ffffff50;
   width: 2rem;
   height: 2rem;
   top: 48%; /* Center the buttons vertically */
@@ -73,9 +77,28 @@
   z-index: 10; /* Ensure buttons stay above the slides */
 }
 
+.swiperLoop :global(.swiper-button-next:hover), .mySwiper :global(.swiper-button-prev:hover) {
+  background-color: #ffffff80;
+}
+
+
 .swiperLoop :global(.swiper-button-next::after), .swiperLoop :global(.swiper-button-prev::after) {
   font-size: 15px;
 }
+
+.dark .swiperSlide p {
+  color: white;
+}
+
+.dark .swiperLoop :global(.swiper-button-next), .dark .swiperLoop :global(.swiper-button-prev) {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.dark .swiperLoop :global(.swiper-button-next:hover), .dark .swiperLoop :global(.swiper-button-prev:hover) {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 
 /* Responsiveness in smaller screens */
 /* @media screen and (max-width: 1089px) {

@@ -13,6 +13,23 @@ export default function SwiperLoop() {
   const [images, setImages] = useState([]);
   const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      // Check if the parent document has a 'dark' class on the body
+      setIsDarkMode(window.parent.document.body.classList.contains('dark'));
+    };
+    // Initial check
+    checkDarkMode();
+    // Set up a MutationObserver to watch for changes in the parent document's body class
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(window.parent.document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const initializeHash = () => {
@@ -73,7 +90,7 @@ export default function SwiperLoop() {
   }, [images]);
 
   return (
-    <div>
+    <div className={`${isDarkMode ? styles.dark : ''}`}>
       <Swiper
         grabCursor={true}
         loop={images.length > 3}
