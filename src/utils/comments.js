@@ -12,3 +12,6 @@
 // }
 
 // initialSlide={0} //Set initialSlide = {5} if you want to show swiper in the middle slide by default
+
+// Send message to parent window with activeIndex
+// window.parent.postMessage({ activeIndex: index, source: 'swiper' }, '*');

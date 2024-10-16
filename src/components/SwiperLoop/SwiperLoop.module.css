@@ -19,6 +19,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  border-radius: 10%;
   /* object-fit: cover; */
   /* object-fit: contain; */
 }
@@ -47,21 +48,29 @@
 }
 
 /* Custom Styles */
-.swiperLoop :global(.swiper-pagination) {
+/* Adjust this value to position the pagination */
+/* .swiperLoop :global(.swiper-pagination) {
   position: absolute;
-  top: 230px; /* Adjust this value to position the pagination */
+  top: 300px; 
   left: 0;
   right: 0;
+} */
+
+.swiperLoop :global(.swiper-pagination) {
+  position: absolute;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .swiperLoop :global(.swiper-button-next), .swiperLoop :global(.swiper-button-prev) {
+  position: absolute;
   color: white; 
   background-color: rgba(0, 0, 0, 0.5);
   width: 2rem;
   height: 2rem;
-  bottom: 300px;
-  top: calc(52% - 1rem); /* Center vertically */
+  top: 48%; /* Center the buttons vertically */
   transform: translateY(-50%);
+  z-index: 10; /* Ensure buttons stay above the slides */
 }
 
 .swiperLoop :global(.swiper-button-next::after), .swiperLoop :global(.swiper-button-prev::after) {
@@ -84,5 +93,62 @@
 @media screen and (max-width: 350px) {
   .swiperSlide {
     height: 300px;
+  }
+} */
+
+/* @media screen and (max-width: 2560px) and (min-width: 2300px) {
+  .swiperSlide {
+    height: 300px;
+  }
+
+  .swiperLoop :global(.swiper-pagination) {
+    top: 400px
+  }
+}
+
+@media screen and (max-width: 2300px) and (min-width: 2150px) {
+  .swiperSlide {
+    height: 275px;
+  }
+
+  .swiperLoop :global(.swiper-pagination) {
+    top: 370px;
+  }
+}
+
+@media screen and (max-width: 2150px) and (min-width: 1950px) {
+  .swiperSlide {
+    height: 250px;
+  }
+
+  .swiperLoop :global(.swiper-pagination) {
+    top: 350px;
+  }
+}
+
+@media screen and (max-width: 1950px) and (min-width: 1750px) {
+  .swiperSlide {
+    height: 220px;
+  }
+
+  .swiperLoop :global(.swiper-pagination) {
+    top: 320px;
+  }
+}
+
+@media screen and (max-width: 1750px) {
+  .swiperSlide {
+    height: 200px;
+  }
+
+  .swiperLoop :global(.swiper-pagination) {
+    top: 300px;
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .swiperSlide {
+    height: 90px;
   }
 } */
