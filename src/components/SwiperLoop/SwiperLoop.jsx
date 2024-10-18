@@ -90,7 +90,7 @@ export default function SwiperLoop() {
   }, [images]);
 
   return (
-    <div className={`${styles.swiperLoopContainer} ${isDarkMode ? styles.dark : ''}`}>
+    <div className={`${styles.swiperLoopContainer}  ${isDarkMode ? styles.dark : ''}`}>
       <Swiper
         grabCursor={true}
         loop={images.length > 3}
