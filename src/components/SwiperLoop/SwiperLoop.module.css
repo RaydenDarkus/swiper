@@ -19,15 +19,21 @@
   opacity: 0.3; 
   height: 120px;
 }
+.swiperSlide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.fade {
+  opacity: 0;
+}
 
 .swiperLoop :global(.swiper-slide-active) {
-  opacity: 1 !important;
-}
-
-.swiperLoop :global(.swiper-slide-prev),
-.swiperLoop :global(.swiper-slide-next) {
-  opacity: 0.6;
-}
+  opacity: 1;
+} 
 
 .swiperSlide img,
 .swiperSlide iframe {

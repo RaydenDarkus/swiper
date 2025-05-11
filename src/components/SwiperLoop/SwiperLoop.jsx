@@ -11,6 +11,7 @@ import { allowedOrigins, handleIframeInteraction } from "../../utils/utils";
 export default function SwiperLoop({ images }) {
   const swiperRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     const checkDarkMode = () => setIsDarkMode(window.parent.document.body.classList.contains("dark"));
@@ -65,6 +66,10 @@ export default function SwiperLoop({ images }) {
     <div className={`${styles.swiperLoopContainer} ${isDarkMode ? styles.dark : ""}`}>
       <Swiper
         grabCursor={true}
+        onTransitionStart={() => setTransitioning(true)}
+        onTransitionEnd={() => {
+          setTransitioning(false);
+        }}
         loop={images.length > 7}
         initialSlide={0}
         centeredSlides={true}
@@ -91,7 +96,7 @@ export default function SwiperLoop({ images }) {
         {images.map((image, index) => (
           <SwiperSlide
             key={index}
-            className={styles.swiperSlide}
+            className={`${styles.swiperSlide} ${transitioning ? styles.fade : ""}`}
             onClick={() => handleSlideClick(index, image.url, image.title, image.explanation, image.media_type)}
           >
             <a href="#" onClick={(e) => e.preventDefault()}>

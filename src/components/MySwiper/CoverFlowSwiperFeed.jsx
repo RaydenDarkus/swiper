@@ -55,8 +55,8 @@ export default function CoverFlowSwiperFeed({ images }) {
     <div className={styles.swiperContainer}>
       <Swiper
         effect={"coverflow"}
-        onSlideChangeTransitionStart={() => setTransitioning(true)}
-        onSlideChangeTransitionEnd={() => {
+        onTransitionStart={() => setTransitioning(true)}
+        onTransitionEnd={() => {
           setTransitioning(false);
         }}
         grabCursor={true}

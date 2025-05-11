@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,6 +10,7 @@ import { allowedOrigins, handleIframeInteraction } from "../../utils/utils";
 
 export default function MiniCoverflowSwiperFeed({ images }) {
   const swiperRef = useRef(null);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     const handlePostMessage = (event) => {
@@ -54,6 +55,10 @@ export default function MiniCoverflowSwiperFeed({ images }) {
       <Swiper
         effect={"slide"}
         grabCursor={true}
+        onTransitionStart={() => setTransitioning(true)}
+        onTransitionEnd={() => {
+          setTransitioning(false);
+        }}
         loop={images.length > 3}
         centeredSlides={true}
         slidesPerView={"auto"}
@@ -70,7 +75,7 @@ export default function MiniCoverflowSwiperFeed({ images }) {
         {images.map((image, index) => (
           <SwiperSlide
             key={index}
-            className={styles.swiperSlide}
+            className={`${styles.swiperSlide} ${transitioning ? styles.fade : ""}`}
             onClick={() => handleSlideClick(index, image.url, image.title, image.explanation, image.media_type)}
           >
             <a href="#" onClick={(e) => e.preventDefault()}>
