@@ -20,25 +20,23 @@
   width: 300px;
   height: 300px;
   transition: transform 0.5s ease, opacity 0.5s ease;
-  opacity: 1; 
 }
 
-.mySwiper :global(.swiper-slide.swiper-slide-prev),
-.mySwiper :global(.swiper-slide.swiper-slide-next),
-.mySwiper :global(.swiper-slide:not(.swiper-slide-active)) {
-  transition: opacity 0.5s ease;
-}
-
-.mySwiper :global(.swiper-slide.swiper-slide-prev),
-.mySwiper :global(.swiper-slide.swiper-slide-next) {
-  opacity: 0.5;
+.fade {
+  opacity: 0;
 }
 
 .mySwiper :global(.swiper-slide-active) {
-  opacity: 1 !important;
-}
+  opacity: 1;
+} 
 
-.swiperSlide img, .swiperSlide iframe {
+/* .mySwiper :global(.swiper-slide.swiper-slide-transitioning.swiper-slide-active) {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+} */
+
+.swiperSlide img,
+.swiperSlide iframe {
   margin-top: 10px;
   display: block;
   width: 100%;
@@ -48,7 +46,7 @@
 .swiperSlide p {
   text-align: center;
   margin-top: 10px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   color: black;
 }
 
@@ -57,7 +55,8 @@
   margin-top: 60px;
 }
 
-.swiperSlide img:hover, .swiperSlide iframe:hover {
+.swiperSlide img:hover,
+.swiperSlide iframe:hover {
   transform: scale(1.01);
 }
 
@@ -77,7 +76,8 @@
   color: white;
 }
 
-.mySwiper :global(.swiper-button-next), .mySwiper :global(.swiper-button-prev) {
+.mySwiper :global(.swiper-button-next),
+.mySwiper :global(.swiper-button-prev) {
   color: black;
   /* background-color: rgba(255, 255, 255, 0.5);
   border: 1px solid black; */
@@ -89,21 +89,25 @@
   transform: translateY(-50%);
 }
 
-.mySwiper :global(.swiper-button-next:hover), .mySwiper :global(.swiper-button-prev:hover) {
+.mySwiper :global(.swiper-button-next:hover),
+.mySwiper :global(.swiper-button-prev:hover) {
   background-color: #ffffff80;
 }
 
-.mySwiper :global(.swiper-button-next::after), .mySwiper :global(.swiper-button-prev::after) {
+.mySwiper :global(.swiper-button-next::after),
+.mySwiper :global(.swiper-button-prev::after) {
   font-size: 25px;
 }
 
-.dark .mySwiper :global(.swiper-button-next), .dark .mySwiper :global(.swiper-button-prev) {
+.dark .mySwiper :global(.swiper-button-next),
+.dark .mySwiper :global(.swiper-button-prev) {
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
   /* border: 1px solid white; */
 }
 
-.dark .mySwiper :global(.swiper-button-next:hover), .dark .mySwiper :global(.swiper-button-prev:hover) {
+.dark .mySwiper :global(.swiper-button-next:hover),
+.dark .mySwiper :global(.swiper-button-prev:hover) {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -127,7 +131,6 @@
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 } */
 
-
 /* Responsiveness in smaller screens */
 @media screen and (max-width: 1089px) {
   .swiperSlide {
@@ -137,7 +140,8 @@
 }
 
 @media screen and (max-width: 800px) {
-  .mySwiper :global(.swiper-button-next), .mySwiper :global(.swiper-button-prev) {
+  .mySwiper :global(.swiper-button-next),
+  .mySwiper :global(.swiper-button-prev) {
     display: none;
   }
 }

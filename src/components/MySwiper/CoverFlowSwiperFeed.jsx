@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -11,6 +11,7 @@ import { allowedOrigins, handleIframeInteraction } from "../../utils/utils";
 
 export default function CoverFlowSwiperFeed({ images }) {
   const swiperRef = useRef(null);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     const handlePostMessage = (event) => {
@@ -54,6 +55,10 @@ export default function CoverFlowSwiperFeed({ images }) {
     <div className={styles.swiperContainer}>
       <Swiper
         effect={"coverflow"}
+        onSlideChangeTransitionStart={() => setTransitioning(true)}
+        onSlideChangeTransitionEnd={() => {
+          setTransitioning(false);
+        }}
         grabCursor={true}
         loop={images.length > 3}
         centeredSlides={true}
@@ -78,7 +83,7 @@ export default function CoverFlowSwiperFeed({ images }) {
         {images.map((image, index) => (
           <SwiperSlide
             key={index}
-            className={styles.swiperSlide}
+            className={`${styles.swiperSlide} ${transitioning ? styles.fade : ""}`}
             onClick={() => handleSlideClick(index, image.url, image.title, image.explanation, image.media_type)}
           >
             <a href="#" onClick={(e) => e.preventDefault()}>
