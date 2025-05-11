@@ -15,7 +15,18 @@
 .swiperSlide {
   background-position: center;
   background-size: cover;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.3; 
   height: 120px;
+}
+
+.swiperLoop :global(.swiper-slide-active) {
+  opacity: 1 !important;
+}
+
+.swiperLoop :global(.swiper-slide-prev),
+.swiperLoop :global(.swiper-slide-next) {
+  opacity: 0.6;
 }
 
 .swiperSlide img,
@@ -32,8 +43,7 @@
 .swiperSlide p {
   text-align: center;
   margin-top: 10px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   font-size: 0.85rem;
 }
 
